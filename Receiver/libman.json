@@ -12,14 +12,10 @@
     },
     {
       "provider": "cdnjs",
-      "library": "bootstrap-growl@1.0.0",
-      "destination": "wwwroot/lib/bootstrap-growl/"
-    },
-    {
-      "library": "notify.js@0.0.3",
-      "destination": "wwwroot/notify.js/",
+      "library": "vue@2.6.10",
+      "destination": "wwwroot/lib/vue/",
       "files": [
-        "notify.bundle.js"
+        "vue.min.js"
       ]
     }
   ]
