@@ -46,7 +46,7 @@ namespace Transmitter
             }
         }
 
-        public Boolean Heartbeat(String application)
+        public Boolean Heartbeat()
         {
             if (connection.State == HubConnectionState.Connected)
             {

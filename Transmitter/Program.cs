@@ -1,37 +1,40 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace Transmitter
 {
     class Program
     {
+        private static List<TelemetryHandler> applications = new List<TelemetryHandler>();
+        private static TelemetryHandler RandomApplication()
+            =>applications[(Int32)((new Random()).NextDouble() * (Double)applications.Count)];
+
+        static Program()
+        {
+            applications.Add(new TelemetryHandler("Mail Application", "https://localhost:44392/signalr/telemetry"));
+            applications.Add(new TelemetryHandler("FTP Application", "https://localhost:44392/signalr/telemetry"));
+            applications.Add(new TelemetryHandler("Invoicing Application", "https://localhost:44392/signalr/telemetry"));
+            applications.Add(new TelemetryHandler("Payroll Application", "https://localhost:44392/signalr/telemetry"));
+            applications.ForEach(app => app.Connect());
+        }
+
         static void Main(string[] args)
         {
-            TelemetryHandler telemetryHandler = 
-                new TelemetryHandler("Application Name", "https://localhost:44392/signalr/telemetry");
-
-            Console.WriteLine("Starting Transmitter");
-            if (telemetryHandler.Connect())
+            while (true)
             {
-                Console.WriteLine("Starting Telemetry Transmission");
-                while (true)
-                {
-                    Double randomVal = (new Random()).NextDouble();
-                    
-                    if (randomVal < 0.1)
-                        telemetryHandler.Heartbeat("Super Application");
+                TelemetryHandler telemetryHandler = RandomApplication();
 
-                    if (randomVal > 0.9)
-                        telemetryHandler.Error("Shit went sideways!");
+                Double randomVal = (new Random()).NextDouble();
 
-                    telemetryHandler.Send("Record", (Int32)(randomVal * 100));
-                    Thread.Sleep((Int32)((new Random()).NextDouble() * 2000));
-                }
-            }
-            else
-            {
-                Console.WriteLine("Failed To Start Transmitter");
-                Console.ReadKey();
+                if (randomVal < 0.1)
+                    telemetryHandler.Heartbeat();
+
+                if (randomVal > 0.9)
+                    telemetryHandler.Error("Shit went sideways!");
+
+                telemetryHandler.Send("Record", (Int32)(randomVal * 100));
+                Thread.Sleep((Int32)((new Random()).NextDouble() * 2000));
             }
         }
     }
