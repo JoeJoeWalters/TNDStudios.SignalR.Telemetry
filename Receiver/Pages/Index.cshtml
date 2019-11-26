@@ -1,21 +1,28 @@
 ﻿@page
 <div class="row">
-    <div class="col-md-3" v-for="application in page.applications.applicationArray">
-        <div class="card">
-            <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-deck">
+        <div style="border-width: 3px" class="card" v-bind:class="{ 'border-danger': application.errors.length != 0 }" v-for="application in page.applications.applicationArray">
             <div class="card-body">
                 <h5 class="card-title">{{application.title}}</h5>
                 <p>
-                    Errors:
+                    <button type="button" class="btn btn-danger">
+                        Errors <span class="badge badge-light">{{application.errors.length}}</span>
+                    </button>
+                    <!--
                     <ul>
                         <li v-for="error in application.errors">{{error}}</li>
                     </ul>
+                    -->
                 </p>
                 <p>
-                    Metrics:
+                    <button type="button" class="btn btn-primary">
+                        Metrics <span class="badge badge-light">{{application.metrics.length}}</span>
+                    </button>
+                    <!--
                     <ul>
                         <li v-for="metric in application.metrics">{{metric}}</li>
                     </ul>
+                        -->
                 </p>
             </div>
         </div>
