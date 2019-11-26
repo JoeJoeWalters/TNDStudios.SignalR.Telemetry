@@ -25,6 +25,7 @@ namespace TNDStudios.SignalR.Telemetry
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddResponseCaching();
             services.AddRazorPages();
             services.AddSignalR(options => { options.EnableDetailedErrors = true; });
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
@@ -60,7 +61,7 @@ namespace TNDStudios.SignalR.Telemetry
             app.UseCors(
                 options => options.AllowAnyMethod().AllowAnyOrigin().AllowAnyHeader()
             );
-
+            app.UseResponseCaching();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();

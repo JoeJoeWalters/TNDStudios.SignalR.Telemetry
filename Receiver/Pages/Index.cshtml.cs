@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace TNDStudios.SignalR.Telemetry.Pages
 {
+    [ResponseCache(VaryByHeader = "User-Agent", Duration = 0)]
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
