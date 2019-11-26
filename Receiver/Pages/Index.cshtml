@@ -2,28 +2,35 @@
 <div class="row">
     <div class="card-deck">
         <div style="border-width: 3px" class="card" v-bind:class="{ 'border-danger': application.errors.length != 0 }" v-for="application in page.applications.applicationArray">
+            <div class="card-header" v-bind:class="{ 'bg-danger': application.errors.length != 0 }">
+                <h5 class="card-title" v-bind:class="{ 'text-white': application.errors.length != 0 }">{{application.title}}</h5>
+            </div>
             <div class="card-body">
-                <h5 class="card-title">{{application.title}}</h5>
                 <p>
                     <button type="button" class="btn btn-danger">
                         Errors <span class="badge badge-light">{{application.errors.length}}</span>
                     </button>
                     <!--
-                    <ul>
-                        <li v-for="error in application.errors">{{error}}</li>
-                    </ul>
-                    -->
+        <ul>
+            <li v-for="error in application.errors">{{error}}</li>
+        </ul>
+        -->
                 </p>
                 <p>
                     <button type="button" class="btn btn-primary">
                         Metrics <span class="badge badge-light">{{application.metrics.length}}</span>
                     </button>
                     <!--
-                    <ul>
-                        <li v-for="metric in application.metrics">{{metric}}</li>
-                    </ul>
-                        -->
+        <ul>
+            <li v-for="metric in application.metrics">{{metric}}</li>
+        </ul>
+            -->
                 </p>
+                <footer class="blockquote-footer">
+                    <small>
+                        Last Heartbeat: <cite title="Last Heartbeat">1 Hour Ago</cite>
+                    </small>
+                </footer>
             </div>
         </div>
     </div>
