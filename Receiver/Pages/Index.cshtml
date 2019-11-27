@@ -1,37 +1,27 @@
 ﻿@page
-<div class="row">
-    <div class="card-deck">
-        <div style="border-width: 3px" class="card" v-bind:class="{ 'border-danger': application.errors.length != 0 }" v-for="application in page.applications.applicationArray">
-            <div class="card-header" v-bind:class="{ 'bg-danger': application.errors.length != 0 }">
-                <h5 class="card-title" v-bind:class="{ 'text-white': application.errors.length != 0 }">{{application.title}}</h5>
-            </div>
-            <div class="card-body">
-                <p>
-                    <button type="button" class="btn btn-danger">
-                        Errors <span class="badge badge-light">{{application.errors.length}}</span>
-                    </button>
-                    <!--
-        <ul>
-            <li v-for="error in application.errors">{{error}}</li>
-        </ul>
-        -->
-                </p>
-                <p>
-                    <button type="button" class="btn btn-primary">
-                        Metrics <span class="badge badge-light">{{application.metrics.length}}</span>
-                    </button>
-                    <!--
-        <ul>
-            <li v-for="metric in application.metrics">{{metric}}</li>
-        </ul>
-            -->
-                </p>
-                <footer class="blockquote-footer">
-                    <small>
-                        Last Heartbeat: <cite title="Last Heartbeat">1 Hour Ago</cite>
-                    </small>
-                </footer>
-            </div>
+<div class="row flex-row flex-nowrap" style="overflow-x: auto; width: 100%; overflow-y:visible; border-top: 3px solid #dddddd; padding-top: 5px; padding-bottom: 5px">
+    <div style="border-width: 3px; padding: 0px; margin-right: 3px; clear: none; float: left" 
+         class="card rounded col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2" 
+         v-bind:class="{ 'border-danger': application.errors.length != 0 }" v-for="application in sortedApplicationArray">
+        <div class="card-header" v-bind:class="{ 'bg-danger': application.errors.length != 0 }">
+            <b class="card-title text-sm-center" v-bind:class="{ 'text-white': application.errors.length != 0 }">{{application.title}}</b>
+        </div>
+        <div class="card-body align-content-center">
+            <p>
+                <button type="button" class="btn btn-danger btn-sm">
+                    Errors <span class="badge badge-light">{{application.errors.length}}</span>
+                </button>
+            </p>
+            <p>
+                <button type="button" class="btn btn-primary btn-sm">
+                    Metrics <span class="badge badge-light">{{application.metrics.length}}</span>
+                </button>
+            </p>
+            <footer class="blockquote-footer">
+                <small>
+                    Last Heartbeat: <cite title="Last Heartbeat">1 Hour Ago</cite>
+                </small>
+            </footer>
         </div>
     </div>
 </div>

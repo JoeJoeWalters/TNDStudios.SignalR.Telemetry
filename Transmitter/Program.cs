@@ -16,6 +16,9 @@ namespace Transmitter
             applications.Add(new TelemetryHandler("FTP Application", "https://localhost:44392/signalr/telemetry"));
             applications.Add(new TelemetryHandler("Invoicing Application", "https://localhost:44392/signalr/telemetry"));
             applications.Add(new TelemetryHandler("Payroll Application", "https://localhost:44392/signalr/telemetry"));
+            applications.Add(new TelemetryHandler("Client 1 Application", "https://localhost:44392/signalr/telemetry"));
+            applications.Add(new TelemetryHandler("Client 2 Application", "https://localhost:44392/signalr/telemetry"));
+            applications.Add(new TelemetryHandler("Client 3 Application", "https://localhost:44392/signalr/telemetry"));
             applications.ForEach(app => app.Connect());
         }
 

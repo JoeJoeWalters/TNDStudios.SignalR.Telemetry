@@ -41,8 +41,7 @@ tndStudios.models.telemetry =
                 this.applicationArray = fromObject;
             }
 
-            this.addApplication = function (applicationName)
-            {
+            this.addApplication = function (applicationName) {
                 var found = $.grep(this.applicationArray, function (item) { return item.title == applicationName; });
                 if (found.length == 0) {
                     var result = new tndStudios.models.telemetry.application(applicationName);

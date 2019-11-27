@@ -7,6 +7,19 @@ var app = new Vue({
     },
     computed: {
 
+        // Sorted array so errors appear at the top
+        sortedApplicationArray: function () {
+            return this.page.applications.applicationArray.sort((a, b) =>
+            {
+                if (a.errors.length < b.errors.length)
+                    return 1;
+                else if (a.errors.length > b.errors.length)
+                    return -1
+                else
+                    return 0;
+            });
+        }
+
     },
     watch: {
 
