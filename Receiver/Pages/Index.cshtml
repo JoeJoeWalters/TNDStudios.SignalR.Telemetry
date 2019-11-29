@@ -1,7 +1,7 @@
 ﻿@page
 <div class="row flex-row flex-nowrap" style="overflow-x: auto; width: 100%; overflow-y:visible; border-top: 3px solid #dddddd; padding-top: 5px; padding-bottom: 5px">
-    <div style="border-width: 3px; padding: 0px; margin-right: 3px; clear: none; float: left" 
-         class="card rounded col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2" 
+    <div style="border-width: 3px; padding: 0px; margin-right: 3px; clear: none; float: left"
+         class="card rounded col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2"
          v-bind:class="{ 'border-danger': application.errors.length != 0 }" v-for="application in sortedApplicationArray">
         <div class="card-header" v-bind:class="{ 'bg-danger': application.errors.length != 0 }">
             <b class="card-title text-sm-center" v-bind:class="{ 'text-white': application.errors.length != 0 }">{{application.title}}</b>
@@ -25,11 +25,24 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-6">
+        <div class="chart-container">
+            <canvas id="chartDisplay1"></canvas>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="chart-container">
+            <canvas id="chartDisplay2"></canvas>
+        </div>
+    </div>
+</div>
 @section Scripts
 {
+    <script src="~/lib/chart.js/Chart.bundle.min.js"></script>
     <script src="~/js/notify/notify.min.js"></script>
     <script src="~/js/signalr/dist/browser/signalr.js"></script>
     <script src="~/lib/vue/vue.min.js"></script>
-    <script src="~/js/telemetryModel.js"></script>
-    <script src="~/js/telemetryPage.js"></script>
+    <script src="~/js/telemetryModel.js" asp-append-version="true"></script>
+    <script src="~/js/telemetryPage.js" asp-append-version="true"></script>
 }
