@@ -77,6 +77,9 @@ namespace TNDStudios.SignalR.Telemetry.Hubs
     [JsonObject]
     public class ReportingApplication : ReportingObjectBase
     {
+        [JsonProperty(PropertyName = "name", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public String Name { get; set; }
+
         [JsonProperty(PropertyName = "metrics", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public List<ReportingMetric> Metrics { get; set; }
 
@@ -91,6 +94,7 @@ namespace TNDStudios.SignalR.Telemetry.Hubs
         /// </summary>
         public ReportingApplication() : base()
         {
+            Name = String.Empty;
             Metrics = new List<ReportingMetric>();
             Errors = new List<ReportingError>();
             Heartbeats = new List<ReportingHeartbeat>();
@@ -138,7 +142,7 @@ namespace TNDStudios.SignalR.Telemetry.Hubs
 
                     // After the second check the application still wasn't there
                     // Create the new application for reporting and adding to the cache
-                    ReportingApplication newApplication = new ReportingApplication() { };
+                    ReportingApplication newApplication = new ReportingApplication() { Name = applicationName.Trim() };
 
                     // Cache it for someone else
                     applications[searchString] = newApplication;
@@ -158,9 +162,9 @@ namespace TNDStudios.SignalR.Telemetry.Hubs
         public ReportingSummary GetReportingSummary()
         {
             // Create a blank report as we won't be returning everything
-            ReportingSummary reportingSummary = 
-                new ReportingSummary() 
-                { 
+            ReportingSummary reportingSummary =
+                new ReportingSummary()
+                {
                     Applications = new List<ReportingApplication>()
                 };
 
