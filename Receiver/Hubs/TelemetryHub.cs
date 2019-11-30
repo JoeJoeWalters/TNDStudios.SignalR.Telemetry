@@ -108,6 +108,11 @@ namespace TNDStudios.SignalR.Telemetry.Hubs
         /// </summary>
         private static Dictionary<String, ReportingApplication> applications;
 
+        // Locking object for the dictionary rather than putting a lock on the dictionary itself
+        // so we can dirty read the metrics without slowing down the app but creates and deletes
+        // can be locked, we also don't want to lock array pushes to sub-items
+        private static Object lockingObject = new Object();
+
         /// <summary>
         /// On absolute start then set up the arrays needed across sessions
         /// </summary>
@@ -133,7 +138,7 @@ namespace TNDStudios.SignalR.Telemetry.Hubs
                 // Lock the applications object whilst we are inserting
                 // as it could be getting another request at the same time
                 // and we don't want to overwrite it
-                lock (applications)
+                lock (lockingObject)
                 {
                     // Now the application is locked, check again just incase someone 
                     // else wrote whilst we were waiting to lock
