@@ -74,7 +74,7 @@ var app = new Vue({
                 },
 
                 // Configuration options go here
-                options: {}
+                options: { responsive: true }
             });
 
             var ctx2 = document.getElementById('chartDisplay2').getContext('2d');
@@ -89,12 +89,12 @@ var app = new Vue({
                         label: 'Metrics',
                         backgroundColor: 'rgb(132, 132, 255)',
                         borderColor: 'rgb(99, 99, 200)',
-                        data: [0, 10, 5, 0, 20, 0, 0, 0, 0, 0, 0, 0, 5, 12, 20, 32, 45, 12]
+                        data: [20, 10, 5, 0, 20, 40, 60, 120, 80, 40, 10, 0, 5, 12, 20, 32, 10, 0]
                     }]
                 },
 
                 // Configuration options go here
-                options: { }
+                options: { responsive: true }
             });
 
             /*
