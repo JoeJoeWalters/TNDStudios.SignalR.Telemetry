@@ -57,8 +57,8 @@ var app = new Vue({
             });
 
             // Render the charts
-            var ctx = document.getElementById('chartDisplay1').getContext('2d');
-            var chart = new Chart(ctx, {
+            var ctx1 = document.getElementById('chartDisplay1').getContext('2d');
+            var chart1 = new Chart(ctx1, {
                 // The type of chart we want to create
                 type: 'line',
 
@@ -96,6 +96,19 @@ var app = new Vue({
                 // Configuration options go here
                 options: { responsive: true }
             });
+
+            // Set up the chart update timer
+            var timerCallBack = function () {
+
+                chart1.data.datasets[0].data.shift();
+                chart1.data.datasets[0].data.push(Math.random() * 50);
+                chart1.update();
+
+                chart2.data.datasets[0].data.shift();
+                chart2.data.datasets[0].data.push(Math.random() * 50);
+                chart2.update();
+            }
+            var myVar = setInterval(timerCallBack, 5000);
 
             /*
             connection.invoke("SendMessage", user, message).catch(function (err) {
