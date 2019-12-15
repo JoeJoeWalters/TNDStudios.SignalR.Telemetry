@@ -52,8 +52,10 @@ namespace Transmitter
             {
                 try
                 {
-                    connection.InvokeAsync("SendHeartbeat", applicationName).Wait();
-                    Console.WriteLine("Sent Heartbeat");
+                    Int32 randomSeconds = (Int32)(2.0 * 60.0 * (new Random().NextDouble()));
+                    DateTime nextRunTime = DateTime.UtcNow.AddSeconds(randomSeconds);
+                    connection.InvokeAsync("SendHeartbeat", applicationName, nextRunTime).Wait();
+                    Console.WriteLine($"Sent Heartbeat - Next Expected Run is {nextRunTime.ToString()}");
                 }
                 catch
                 {

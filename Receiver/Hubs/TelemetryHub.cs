@@ -72,6 +72,9 @@ namespace TNDStudios.SignalR.Telemetry.Hubs
         /// Default constructor using base to set up core values
         /// </summary>
         public ReportingHeartbeat() : base() { }
+
+        [JsonProperty(PropertyName = "nextRunTime", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public DateTime NextRunTime { get; set; }
     }
 
     [JsonObject]
@@ -89,6 +92,9 @@ namespace TNDStudios.SignalR.Telemetry.Hubs
         [JsonProperty(PropertyName = "heartbeats", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public List<ReportingHeartbeat> Heartbeats { get; set; }
 
+        [JsonProperty(PropertyName = "nextRunTime", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public DateTime NextRunTime { get; set; }
+
         /// <summary>
         /// Default constructor using base to set up core values
         /// </summary>
@@ -98,6 +104,7 @@ namespace TNDStudios.SignalR.Telemetry.Hubs
             Metrics = new List<ReportingMetric>();
             Errors = new List<ReportingError>();
             Heartbeats = new List<ReportingHeartbeat>();
+            NextRunTime = DateTime.MinValue;
         }
     }
 
@@ -185,11 +192,12 @@ namespace TNDStudios.SignalR.Telemetry.Hubs
             await Clients.All.SendAsync("ReceiveMetric", applicationName, property, metric);
         }
 
-        public async Task SendHeartbeat(string applicationName)
+        public async Task SendHeartbeat(string applicationName, DateTime nextRunTime)
         {
             ReportingApplication application = GetApplication(applicationName);
-            application.Heartbeats.Add(new ReportingHeartbeat() { });
-            await Clients.All.SendAsync("ReceiveHeartbeat", applicationName);
+            application.NextRunTime = nextRunTime;
+            application.Heartbeats.Add(new ReportingHeartbeat() { NextRunTime = nextRunTime });
+            await Clients.All.SendAsync("ReceiveHeartbeat", applicationName, nextRunTime);
         }
 
         public async Task SendError(string applicationName, string errorMessage)

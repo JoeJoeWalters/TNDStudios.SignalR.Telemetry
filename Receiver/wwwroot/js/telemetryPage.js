@@ -37,7 +37,7 @@ var app = new Vue({
                 //$.notify(applicationName + " : " + encodedMsg, { autoHideDelay: 10000, className: "info", globalPosition: "top right" }); //https://notifyjs.jpillora.com/
             });
 
-            connection.on("ReceiveHeartbeat", function (applicationName) {
+            connection.on("ReceiveHeartbeat", function (applicationName, nextRunTime) {
                 var application = app.page.applications.addApplication(applicationName);
                 var encodedMsg = "Heartbeat";
                 //$.notify(encodedMsg, { autoHideDelay: 5000, className: "success", globalPosition: "top right" }); //https://notifyjs.jpillora.com/
